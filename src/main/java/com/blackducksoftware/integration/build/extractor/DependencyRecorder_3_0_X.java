@@ -51,7 +51,6 @@ import com.blackducksoftware.integration.build.BuildInfo;
 import com.blackducksoftware.integration.build.bdio.BdioConverter;
 import com.blackducksoftware.integration.build.bdio.CommonBomFormatter;
 import com.blackducksoftware.integration.build.bdio.Gav;
-import com.blackducksoftware.integration.build.bdio.MavenIdCreator;
 
 @Component(role = EventSpy.class, isolatedRealm = true, description = "Build Info Recorder - (C) Black Duck Software, Inc. 2014")
 public class DependencyRecorder_3_0_X extends AbstractEventSpy {
@@ -164,8 +163,7 @@ public class DependencyRecorder_3_0_X extends AbstractEventSpy {
 		}
 
 		try (final OutputStream outputStream = new FileOutputStream(file)) {
-			final MavenIdCreator mavenIdCreator = new MavenIdCreator();
-			final BdioConverter bdioConverter = new BdioConverter(mavenIdCreator);
+			final BdioConverter bdioConverter = new BdioConverter();
 			final CommonBomFormatter commonBomFormatter = new CommonBomFormatter(bdioConverter);
 			commonBomFormatter.writeProject(outputStream, project.getName(), root);
 			logger.info("Created Black Duck I/O json: " + file.getAbsolutePath());
